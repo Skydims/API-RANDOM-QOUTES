@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Quotes</title>
+  </head>
+  <body>
+    <h1>Welcome to Random Quotes</h1>
+    <p>Click the button below to get a random quote:</p>
+    <button onclick="fetchQuote()">Get Quote</button>
+    <div id="quote-display"></div>
+
+    <script>
+      async function fetchQuote() {
+        const response = await fetch("/random/");
+        const data = await response.json();
+        const display = document.getElementById("quote-display");
+        if (data.error) {
+          display.textContent = data.error;
+        } else {
+          display.innerHTML = `<p>"${data.text}" - ${data.author}</p>`;
+        }
+      }
+    </script>
+  </body>
+</html>
